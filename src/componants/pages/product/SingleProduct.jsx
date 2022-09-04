@@ -6,7 +6,7 @@ import { fetchProduct } from "../../../API/product";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../../redux/cartRedux";
 import { motion } from "framer-motion";
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
 import { storeData } from "../../../redux/recentlyRedux";
 import notFound from "../../../img/notFound.png";
 import LoadingSingle from "../../LoadingSingle";
@@ -161,7 +161,7 @@ const SingleProduct = () => {
                   })}
                 </div>
                 <div className="col-10 col-md-10 d-flext justify-content-center js">
-                  <ReactImageMagnify
+                  {/* <ReactImageMagnify
                     {...{
                       smallImage: {
                         alt: "Wristwatch by Ted Baker London",
@@ -179,7 +179,7 @@ const SingleProduct = () => {
                       },
                       enlargedImagePosition: "over",
                     }}
-                  />
+                  /> */}
                 </div>
               </div>
             </motion.div>
