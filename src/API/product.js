@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const productURL = "http://192.168.1.114:8000/api/";
+const productURL = "https://hatlyback.herokuapp.com/api/";
 
 export const fetchProduct = axios.create({
   baseURL: productURL,
