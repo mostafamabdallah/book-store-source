@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "bootstrap/dist/js/bootstrap.bundle";
 import logo from "../img/logo.png";
 import logo2 from "../img/logo2.png";
@@ -16,7 +16,10 @@ import {
   faPhone,
   faMobile,
   faClock,
-  faBoltLightning,faHeadphones, faPlug, faMobileScreen
+  faBoltLightning, faHeadphones, faPlug, faMobileScreen,
+  faPlus,
+  faMinus,
+  faHourglass
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
@@ -28,15 +31,22 @@ import {
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import SearchProduct from "./SearchProduct";
+import { useDispatch } from "react-redux";
+import { showAlert } from "../redux/alertReducer";
+
 const NavBar = () => {
+  const dispatch = useDispatch()
   const [elementMotion, setElementMotion] = useState({ x: "150%", opacity: 0 });
   const cart = useSelector((state) => state.cart);
-
   const [y, setY] = useState(window.scrollY);
   const [top, setTop] = useState('0px');
   const [color, setColor] = useState("transparent");
   const [text, setText] = useState("#384a8c");
   const [logos, setLogos] = useState(logo);
+  const [motionCatergory, setMotionCatergory] = useState({});
+  const [display, setDisplay] = useState('none');
+  const [flage, setFlage] = useState(0)
+  const [catIcon, setCatIcon] = useState(faPlus)
 
   const handleNavigation = useCallback(
     (e) => {
@@ -85,7 +95,7 @@ const NavBar = () => {
       <div
         className="container"
       >
-        <div className="row justify-content-between align-items-center  pt-lg-2 pt-2 pb-3 pb-lg-0" style={{ borderBottom: `1px solid ${text}45` }}>
+        <div className="row justify-content-between align-items-center  pt-lg-2 pt-2 pb-3 pb-lg-0 d-none d-lg-flex" style={{ borderBottom: `1px solid ${text}45` }}>
           <div className="col-auto">
             <p style={{ color: 'inherit', margin: '0px', fontWeight: 'bold' }}>The Easiest and Fastest instalment system.</p>
           </div>
@@ -143,14 +153,23 @@ const NavBar = () => {
             </div>
           </div>
           <div className="col-auto d-flex align-items-center justify-content-end">
-            <Link to='/'>
+            <a href="#" onClick={(e) => {
+              dispatch(
+                showAlert({
+                  header: 'Masseage',
+                  description: 'Comming Soon',
+                  icon1: faHourglass,
+                  icon2: faShop,
+                  y: '0'
+                }))
+            }} >
               <FontAwesomeIcon
                 className="col pe-2"
                 icon={faEarth}
                 style={{ fontSize: "20px" }}
               ></FontAwesomeIcon>
               <span className="d-none d-md-inline" style={{ fontSize: "20px" }} >العربية</span>
-            </Link>
+            </a>
           </div>
         </div>
         <div
@@ -265,6 +284,13 @@ const NavBar = () => {
             {/* <SearchProduct></SearchProduct> */}
           </div>
         </div>
+        <div className="row d-lg-none mb-3">
+          <div className="container d-flex justify-content-center"> 
+          <div className="col-10">
+            <SearchProduct color={text}></SearchProduct>
+          </div>
+          </div>
+        </div>
       </div>
       {/* side nav */}
       <motion.div
@@ -288,6 +314,7 @@ const NavBar = () => {
         }}
       >
         <div className="row justify-content-end pt-4">
+
           <div className="col-2">
             <FontAwesomeIcon
               onClick={() => {
@@ -298,8 +325,9 @@ const NavBar = () => {
             ></FontAwesomeIcon>
           </div>
         </div>
-        <div className="row p-5">
+        <div className="row p-5" >
           <Link onClick={() => {
+            setElementMotion({ x: "150%", opacity: 0 })
             window.scroll({
               top: 0,
               left: 0,
@@ -315,6 +343,7 @@ const NavBar = () => {
             </p>
           </Link>
           <Link onClick={() => {
+            setElementMotion({ x: "150%", opacity: 0 })
             window.scroll({
               top: 0,
               left: 0,
@@ -330,6 +359,7 @@ const NavBar = () => {
             </p>
           </Link>
           <Link onClick={() => {
+            setElementMotion({ x: "150%", opacity: 0 })
             window.scroll({
               top: 0,
               left: 0,
@@ -345,6 +375,7 @@ const NavBar = () => {
             </p>
           </Link>
           <Link onClick={() => {
+            setElementMotion({ x: "150%", opacity: 0 })
             window.scroll({
               top: 0,
               left: 0,
@@ -359,97 +390,173 @@ const NavBar = () => {
               Contact
             </p>
           </Link>
-          <Link onClick={() => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }} to="/shop/Mobiles">
+          <a href="#" onClick={() => {
+            if (flage == 0) {
+              setMotionCatergory({ x: '0', opacity: 1 })
+              setFlage(1)
+              setCatIcon(faMinus)
+              setDisplay('block')
+            } else {
+              setMotionCatergory({ x: '-300px', opacity: 0 })
+              setFlage(0)
+              setCatIcon(faPlus)
+              setTimeout(() => {
+                setDisplay('none')
+
+              }, 2000);
+            }
+          }}>
             <p className="text-end" style={{ fontSize: "25px" }}>
-            <FontAwesomeIcon
+              <FontAwesomeIcon
                 className="col pe-2"
-                icon={faMobile}
+                icon={catIcon}
               ></FontAwesomeIcon>
-              Phones
+              Category
             </p>
-          </Link>
-          <Link onClick={() => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }} to="/shop/Smart Watches">
-            <p className="text-end" style={{ fontSize: "25px" }}>
-            <FontAwesomeIcon
-                className="col pe-2"
-                icon={faClock}
-              ></FontAwesomeIcon>
-              Smart Watches
-            </p>
-          </Link>
-          <Link onClick={() => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }} to="/shop/Mobiles">
-            <p className="text-end" style={{ fontSize: "25px" }}>
-            <FontAwesomeIcon
-                className="col pe-2"
-                icon={faBoltLightning }
-              ></FontAwesomeIcon>
-              Chargers
-            </p>
-          </Link>
-          <Link onClick={() => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }} to="/shop/Earbuds">
-            <p className="text-end" style={{ fontSize: "25px" }}>
-            <FontAwesomeIcon
-                className="col pe-2"
-                icon={faHeadphones}
-              ></FontAwesomeIcon>
-              Headphones
-            </p>
-          </Link>
-          <Link onClick={() => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }} to="/shop/Mobiles">
-            <p className="text-end" style={{ fontSize: "25px" }}>
-            <FontAwesomeIcon
-                className="col pe-2"
-                icon={faPlug}
-              ></FontAwesomeIcon>
-              Power Banks
-            </p>
-          </Link>
-          <Link onClick={() => {
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }} to="/shop/Mobiles">
-            <p className="text-end" style={{ fontSize: "25px" }}>
-            <FontAwesomeIcon
-                className="col pe-2"
-                icon={faMobileScreen}
-              ></FontAwesomeIcon>
-              Cases
-            </p>
-          </Link>
+          </a>
+          <div className="category" style={{ display: display }}>
+
+            <motion.div initial={{ x: "150%", opacity: 0 }}
+              animate={motionCatergory}
+              transition={{
+                duration: 0.8,
+                delay: 0
+              }}>
+              <Link onClick={() => {
+                setElementMotion({ x: "150%", opacity: 0 })
+                window.scroll({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }} to="/shop/Mobiles">
+                <p className="text-end" style={{ fontSize: "25px" }}>
+                  <FontAwesomeIcon
+                    className="col pe-2"
+                    icon={faMobile}
+                  ></FontAwesomeIcon>
+                  Phones
+                </p>
+              </Link>
+            </motion.div>
+            <motion.div initial={{ x: "150%", opacity: 0 }}
+              animate={motionCatergory}
+              transition={{
+                duration: 0.8,
+                delay: 0.2
+              }}>
+              <Link onClick={() => {
+                setElementMotion({ x: "150%", opacity: 0 })
+                window.scroll({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }} to="/shop/Smart Watches">
+                <p className="text-end" style={{ fontSize: "25px" }}>
+                  <FontAwesomeIcon
+                    className="col pe-2"
+                    icon={faClock}
+                  ></FontAwesomeIcon>
+                  Smart Watches
+                </p>
+              </Link>
+            </motion.div>
+            <motion.div initial={{ x: "150%", opacity: 0 }}
+              animate={motionCatergory}
+              transition={{
+                duration: 0.8,
+                delay: 0.4
+              }}>
+              <Link onClick={() => {
+                setElementMotion({ x: "150%", opacity: 0 })
+                window.scroll({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }} to="/shop/Mobiles">
+                <p className="text-end" style={{ fontSize: "25px" }}>
+                  <FontAwesomeIcon
+                    className="col pe-2"
+                    icon={faBoltLightning}
+                  ></FontAwesomeIcon>
+                  Chargers
+                </p>
+              </Link>
+            </motion.div>
+            <motion.div initial={{ x: "150%", opacity: 0 }}
+              animate={motionCatergory}
+              transition={{
+                duration: 0.8,
+                delay: 0.6
+              }}>
+              <Link onClick={() => {
+                setElementMotion({ x: "150%", opacity: 0 })
+                window.scroll({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }} to="/shop/Earbuds">
+                <p className="text-end" style={{ fontSize: "25px" }}>
+                  <FontAwesomeIcon
+                    className="col pe-2"
+                    icon={faHeadphones}
+                  ></FontAwesomeIcon>
+                  Headphones
+                </p>
+              </Link>
+            </motion.div>
+            <motion.div initial={{ x: "150%", opacity: 0 }}
+              animate={motionCatergory}
+              transition={{
+                duration: 0.8,
+                delay: 0.8
+              }}>
+              <Link onClick={() => {
+                setElementMotion({ x: "150%", opacity: 0 })
+                window.scroll({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }} to="/shop/Mobiles">
+                <p className="text-end" style={{ fontSize: "25px" }}>
+                  <FontAwesomeIcon
+                    className="col pe-2"
+                    icon={faPlug}
+                  ></FontAwesomeIcon>
+                  Power Banks
+                </p>
+              </Link>
+            </motion.div>
+            <motion.div initial={{ x: "150%", opacity: 0 }}
+              animate={motionCatergory}
+              transition={{
+                duration: 0.8,
+                delay: 1
+              }}>
+              <Link onClick={() => {
+                setElementMotion({ x: "150%", opacity: 0 })
+                window.scroll({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }} to="/shop/Mobiles">
+                <p className="text-end" style={{ fontSize: "25px" }}>
+                  <FontAwesomeIcon
+                    className="col pe-2"
+                    icon={faMobileScreen}
+                  ></FontAwesomeIcon>
+                  Cases
+                </p>
+              </Link>
+            </motion.div>
+          </div>
         </div>
+
 
         <div className="row ps-5 pe-5 icon">
           <FontAwesomeIcon

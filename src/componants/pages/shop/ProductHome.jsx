@@ -42,7 +42,7 @@ const Product = (props) => {
           style={{ textDecoration: "none" }}
         >
           <img
-            src={props.data.image ? `http://hatlystore.sys.tswsp.net:8001/${props.data.image}`:notFound}
+            src={props.data.image ? `https://hatlystore.tswsp.net${props.data.image}`:notFound}
             style={{
               width: "80%",
               height: "80%",

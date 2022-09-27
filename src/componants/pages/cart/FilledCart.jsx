@@ -36,7 +36,7 @@ const FilledCart = (props) => {
         <div className="row">
           {props.data.products.map((data, i) => {
             return (
-              <div className="col-12 col-md-6 col-lg-4 col-xl-3 pt-3" key={i}>
+              <div className="col-6 col-md-6 col-lg-4 col-xl-3 pt-3" key={i}>
                 <div
                   key={i}
                   style={{
@@ -56,7 +56,7 @@ const FilledCart = (props) => {
                       to={`/product/${data.id}`}
                       className="col-12 col-md-12"
                     >
-                      <img width="100%" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.image ? `http://hatlystore.sys.tswsp.net:8001/${data.image}` : notFound}></img>
+                      <img width="100%" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.image ? `https://hatlystore.tswsp.net${data.image}` : notFound}></img>
                     </Link>
                     <div className="col-12 col-md-12 mb-0">
                       <p style={pStyle}>

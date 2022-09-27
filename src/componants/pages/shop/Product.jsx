@@ -25,7 +25,7 @@ const Product = (props) => {
         <Link to={`/product/${props.data.id}`} onClick={scrollTop}>
           <img
             className="productImage"
-            src={props.data.image ? `http://hatlystore.sys.tswsp.net:8001/${props.data.image}`:notFound}
+            src={props.data.image ? `https://hatlystore.tswsp.net${props.data.image}`:notFound}
             style={{ width: "100%", height: "100%" }}
           />
         </Link>

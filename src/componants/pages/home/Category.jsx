@@ -6,11 +6,14 @@ const Category = (props) => {
   return (
     <motion.div
       whileHover={{
-        scale: 1.1,
-        rotate: 360,
-        transition: { duration: 0.5 },
+        scale: 1.04,
+        transition: {
+          type: "spring",
+          bounce: 0.4,
+          duration: 0.8
+        },
       }}
-      className="col-6 col-md-4 mt-md-3 col-lg-2 mt-lg-0 mt-3 mt-md-0"
+      className="col-6 col-md-4 mt-md-3 col-lg mt-lg-0 mt-3 mt-md-0"
     >
       <Link
         to={`/shop/${props.category.url}`}

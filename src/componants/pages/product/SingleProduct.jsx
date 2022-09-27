@@ -6,7 +6,7 @@ import { fetchProduct } from "../../../API/product";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../../redux/cartRedux";
 import { motion } from "framer-motion";
-// import ReactImageMagnify from "react-image-magnify";
+import ReactImageMagnify from "react-image-magnify";
 import { storeData } from "../../../redux/recentlyRedux";
 import notFound from "../../../img/notFound.png";
 import LoadingSingle from "../../LoadingSingle";
@@ -50,17 +50,15 @@ const SingleProduct = () => {
           code: res.data[0].item_code
         }
       })
-      console.log([...res2.data]);
-      const gal = []
       setGallary([res.data[0].image, ...res2.data.map((el) => {
         return el.file_url
       })])
 
       setLoading(false);
       setProduct(res.data[0]);
-      setimgs(res.data[0].image ? `http://hatlystore.sys.tswsp.net:8001${res.data[0].image}` : notFound);
+      setimgs(res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound);
       setProductImgs([
-        res.data[0].image ? `http://hatlystore.sys.tswsp.net:8001${res.data[0].image}` : notFound,
+        res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound,
       ]);
       setProductCategoey(res.data[0].item_group);
       cart.products.map((item, i) => {
@@ -74,14 +72,14 @@ const SingleProduct = () => {
       } else {
         recentlyData = JSON.parse(localStorage.getItem("product"));
         if (recentlyData.id) {
-          recentlyData = [...recentlyData, res.data[0]];
+          recentlyData = [ res.data[0],...recentlyData];
         } else {
           recentlyData.map((el, i) => {
             if (el.id == res.data[0].id) {
               return recentlyData.splice(i, 1);
             }
           });
-          recentlyData = [...recentlyData, res.data[0]];
+          recentlyData = [ res.data[0],...recentlyData];
         }
         localStorage.setItem("product", JSON.stringify(recentlyData));
       }
@@ -153,7 +151,7 @@ const SingleProduct = () => {
                           onClick={(e) => {
                             setimgs(e.target.getAttribute("src"));
                           }}
-                          src={image ? `${`http://hatlystore.sys.tswsp.net:8001${image}`}` : notFound}
+                          src={image ? `${`https://hatlystore.tswsp.net${image}`}` : notFound}
                           style={{ width: "100%", cursor: "pointer" }}
                         ></img>
                       </div>
@@ -161,7 +159,7 @@ const SingleProduct = () => {
                   })}
                 </div>
                 <div className="col-10 col-md-10 d-flext justify-content-center js">
-                  {/* <ReactImageMagnify
+                  <ReactImageMagnify
                     {...{
                       smallImage: {
                         alt: "Wristwatch by Ted Baker London",
@@ -179,7 +177,7 @@ const SingleProduct = () => {
                       },
                       enlargedImagePosition: "over",
                     }}
-                  /> */}
+                  />
                 </div>
               </div>
             </motion.div>
@@ -441,8 +439,7 @@ const SingleProduct = () => {
                       ></Product>
                     );
                   }
-                })
-                .reverse()}
+                })}
             </motion.div>
           )}
         </div>

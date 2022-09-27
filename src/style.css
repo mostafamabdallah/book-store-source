@@ -218,6 +218,10 @@ body {
   box-shadow: none !important
 }
 
-a{
+a {
   text-decoration: none;
+}
+
+.swiper-wrapper{
+  align-items: center;
 }

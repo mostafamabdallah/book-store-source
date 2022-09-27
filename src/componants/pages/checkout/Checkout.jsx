@@ -8,6 +8,13 @@ import notFound from "../../../img/notFound.png";
 import { useNavigate } from "react-router-dom";
 import sliderImage5 from "../../../img/slider4.png";
 import { motion } from "framer-motion";
+import PaymentSlider from "../../PaymentSlider";
+
+import cashImage from "../../../img/Cash-on-delivery.png";
+import cardImage from "../../../img/Credit-Card.png";
+import instalmentImage from "../../../img/Bank-Installments.png";
+import valuImage from "../../../img/Value.png";
+
 
 const pStyle = {
   WebkitBoxOrient: "vertical",
@@ -41,7 +48,7 @@ const Checkout = () => {
   const [paymentKeys, setPaymentKeys] = useState("");
   const [display, setDisplay] = useState("none");
   const [iframeID, setIframeID] = useState();
-  const [integrationID, setIntegrationID] = useState();
+  const [integrationID, setIntegrationID] = useState(2501045);
   const [cash, setCash] = useState(true);
   const [disable, setDisable] = useState({
     value: false,
@@ -52,14 +59,15 @@ const Checkout = () => {
   const getToken = () =>
     axios.post("https://accept.paymob.com/api/auth/tokens", {
       api_key:
-        "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TWpZd056TXhMQ0p1WVcxbElqb2lNVFkyTVRNMU1qQTFPUzR4T1RrNE1qTWlmUS4yZ001eTUxTUlQd0d5S2h5UkwxVzRkSFpQUjV4Q1FJWi1RU09oWFZFenZ1R1JUT0E0UEhYYThMMl8tdGttb01sMGZkSUptQTBJQ25VT3M0aW9oR1phdw==",
+        "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TWpBMU9Ea3lMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuOXBjWkVFbDNqRkxkZExSYTdjU1piMFhoU0d4RHpfYkp3WUZ6dVIyQXFZZlc4aS02Tmh3cHktNVdLNjNvUnlYN2pXQmNEZ2RNdzRaWnNFZzJqMTdzNGc=",
     });
 
   const sendOrder = (token, data) =>
     axios.post("https://accept.paymob.com/api/ecommerce/orders", {
       auth_token: token,
       delivery_needed: "false",
-      amount_cents: `${Number(cart.total) * 100}`,
+      // amount_cents: `${Number(cart.total) * 100}`,
+      amount_cents: `${100}`,
       currency: "EGP",
       items: items,
       shipping_data: {
@@ -74,14 +82,15 @@ const Checkout = () => {
         city: data.city,
         country: "EG",
         last_name: data.lastName,
-        state: data.lastName,
+        state: data.state,
       },
     });
 
   const getPaymentKeys = (token, orderId, data) =>
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
-      amount_cents: `${Number(cart.total) * 100}`,
+      // amount_cents: `${Number(cart.total) * 100}`,
+      amount_cents: `${100}`,
       expiration: 3600,
       order_id: orderId,
       billing_data: {
@@ -96,10 +105,10 @@ const Checkout = () => {
         city: data.city,
         country: "EG",
         last_name: data.lastName,
-        state: data.lastName,
+        state: data.state,
       },
       currency: "EGP",
-      integration_id: 2509764,
+      integration_id: integrationID,
       lock_order_when_paid: "true",
     });
 
@@ -148,10 +157,10 @@ const Checkout = () => {
 
   return (
     <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
       className="pb-5  d-flex justify-content-center"
       style={{ backgroundColor: "#ebeef5", paddingTop: "150px" }}
     >
@@ -247,6 +256,17 @@ const Checkout = () => {
                     />
                     <p className="pb-0 pt-2 text-danger">
                       {errors.email?.message}
+                    </p>
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">State*</label>
+                    <input
+                      {...register("state", { required: "This is required" })}
+                      type="text"
+                      className="form-control"
+                    />
+                    <p className="mb-0 pt-2 text-danger">
+                      {errors.state?.message}
                     </p>
                   </div>
 
@@ -346,7 +366,7 @@ const Checkout = () => {
                             width="100%"
                             src={
                               product.image
-                                ? `${`http://hatlystore.sys.tswsp.net:8001/${product.image}`}`
+                                ? `${`https://hatlystore.tswsp.net${product.image}`}`
                                 : notFound
                             }
                           />
@@ -392,7 +412,7 @@ const Checkout = () => {
                 </div>
               </div>
               <div
-                className="row mt-3 p-3"
+                className="row mt-3 p-3 "
                 style={{
                   backgroundColor: "white",
                   boxShadow: "0 2px 5px 0 rgb(0 0 0 / 5%)",
@@ -408,7 +428,7 @@ const Checkout = () => {
                   </h6>
                   <div className="row">
                     <div className="col-12">
-                      <div className="row mb-2">
+                      <div className="row mb-2 align-items-center">
                         <div className="col-2">
                           <input
                             checked={cash}
@@ -417,14 +437,15 @@ const Checkout = () => {
                             type="radio"
                             name="flexRadioDefault"
                             onClick={(e) => {
+                              setIntegrationID(2501045)
                               setCash(true);
                             }}
                           />
                         </div>
                         <div className="col-3">
-                          <img
+                        <img
                             width="100%"
-                            src="https://www.myxprs.com/assets/imgs/icons/cash.png"
+                            src={cashImage}
                           />
                         </div>
                         <div className="col">
@@ -436,12 +457,12 @@ const Checkout = () => {
                           </label>
                         </div>
                       </div>
-                      <div className="row mb-2">
+                      <div className="row mb-2 align-items-center" >
                         <div className="col-2">
                           <input
                             onClick={() => {
-                              setIntegrationID()
-                              setIframeID(440365);
+                              setIntegrationID(2715432)
+                              setIframeID(402130);
                               setCash(false);
                             }}
                             className="form-check-input"
@@ -450,9 +471,9 @@ const Checkout = () => {
                           />
                         </div>
                         <div className="col-3">
-                          <img
+                        <img
                             width="100%"
-                            src="https://www.myxprs.com/assets/imgs/icons/visa.png"
+                            src={cardImage}
                           />
                         </div>
                         <div className="col">
@@ -464,12 +485,40 @@ const Checkout = () => {
                           </label>
                         </div>
                       </div>
-                      <div className="row mb-2">
+                      <div className="row mb-2 align-items-center">
                         <div className="col-2">
                           <input
                             onClick={() => {
-                              setIntegrationID()
-                              setIframeID(440364);
+                              setIntegrationID(2715432)
+                              setIframeID(671776);
+                              setCash(false);
+                            }}
+                            className="form-check-input"
+                            type="radio"
+                            name="flexRadioDefault"
+                          />
+                        </div>
+                        <div className="col-3">
+                        <img
+                            width="100%"
+                            src={instalmentImage}
+                          />
+                        </div>
+                        <div className="col">
+                          <label
+                            className="form-check-label"
+                            htmlFor="flexRadioDefault2"
+                          >
+                            Bank Installment
+                          </label>
+                        </div>
+                      </div>
+                      <div className="row mb-2 align-items-center">
+                        <div className="col-2">
+                          <input
+                            onClick={() => {
+                              setIntegrationID(2336861);
+                              setIframeID(407523);
                               setCash(false);
                             }}
                             className="form-check-input"
@@ -480,7 +529,7 @@ const Checkout = () => {
                         <div className="col-3">
                           <img
                             width="100%"
-                            src=" https://www.myxprs.com/assets/imgs/icons/misr.png"
+                            src="https://accept.paymobsolutions.com/static/img/ValU.png"
                           />
                         </div>
                         <div className="col">
@@ -488,7 +537,7 @@ const Checkout = () => {
                             className="form-check-label"
                             htmlFor="flexRadioDefault2"
                           >
-                            Bank Installment
+                            VaLU
                           </label>
                         </div>
                       </div>
@@ -504,19 +553,7 @@ const Checkout = () => {
 
                       </div>
                       <div>
-                        <div data-aos="zoom-in" class="aos-init aos-animate">
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596645203master.png" alt="Master card" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022646Group%202759.png" alt="aman" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Group%202760.png" alt="vodafon" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Group%202762.png" alt="masary" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Group%202761.png" alt="alahly" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Group%202763.png" alt="bank du cairo" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Group%202764.png" alt="bank audi" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Group%2018019.png" alt="bank saib" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Mask%20Group%2017402.png" alt="meza" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Mask%20Group%2017401.png" alt="CIB" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Mask%20Group%2017400.png" alt="bank misr" />
-                          <img src="https://paymob.com/8080/uploads/paymob/logos/1596022647Mask%20Group%2040.png" alt="mmoken" /></div>
+                        <PaymentSlider number={2}></PaymentSlider>
                       </div>
                     </div>
                   </div>
@@ -530,7 +567,7 @@ const Checkout = () => {
             <img src={sliderImage5} alt="" width="100%" />
           </div>
         </div>
-      </div>
+      </div >
 
       <div
         className="container p-0"
@@ -560,7 +597,7 @@ const Checkout = () => {
           />
         </div>
       </div>
-    </motion.div>
+    </motion.div >
   );
 };
 

@@ -5,8 +5,67 @@ import Product from "./Product";
 import { motion } from "framer-motion";
 import Loading from "../../Loading";
 import { useParams } from "react-router-dom";
-import sliderImage5 from "../../../img/slider4.png";
 
+
+import phonesImage from "../../../img/image0-1536x1152.png";
+import wahtchImage from "../../../img/image1-1536x1152.png";
+import chargerImage from "../../../img/image2-1536x1152.png";
+import headphonesImage from "../../../img/image3-1536x1152.png";
+import caseImage from "../../../img/image4-1536x1152.png";
+import powerBanksImage from "../../../img/image5-1536x1152.png";
+import gaming from '../../../img/gaming.png'
+import sliderImage5 from "../../../img/slider4.png";
+import sliderImage6 from "../../../img/slider2.png";
+import sliderImage7 from "../../../img/slider1.png";
+import PaymentSlider from "../../PaymentSlider";
+import Category from "../home/Category";
+
+const categoryArray = [
+  {
+    name: "Phones",
+    img: phonesImage,
+    url: 'Mobiles'
+  },
+  {
+    name: "Chargers",
+    img: chargerImage,
+    url: 'Chargers'
+  },
+  {
+    name: "Smart Watches",
+    img: wahtchImage,
+    url: 'Smart Watches'
+
+  },
+  {
+    name: "Headphones",
+    img: headphonesImage,
+    url: 'Earbuds'
+  },
+  {
+    name: "Power Banks",
+    img: powerBanksImage,
+    url: 'Mobiles'
+  },
+  {
+    name: "Cases",
+    img: caseImage,
+    url: 'Mobiles'
+  },
+  {
+    name: "Accessories ",
+    img: gaming,
+    url: 'Mobiles'
+  },
+];
+
+const scrollTop = () => {
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+};
 
 const Shop = () => {
   const { category } = useParams();
@@ -57,7 +116,7 @@ const Shop = () => {
       } else {
         if (selectedBradns != "") {
           setLoading(true);
-          res = await fetchProduct.get(`/products/brand/${selectedBradns}`,{
+          res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
             params: {
               category: selecterdCategory
             }
@@ -74,14 +133,14 @@ const Shop = () => {
         }
       }
       setProducts(res.data);
-    } catch (er) {}
+    } catch (er) { }
   };
 
   const getCategories = async () => {
     try {
       const res = await fetchProduct.get("/category");
       setCategories(res.data);
-    } catch (er) {}
+    } catch (er) { }
   };
 
   useEffect(() => {
@@ -96,8 +155,72 @@ const Shop = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
       style={{ backgroundColor: "#ebeef5", paddingTop: "150px" }}
+
     >
-      <div className="container pt-5 pb-3">
+      <div className="container p-0">
+        <div className="row justify-content-md-between justify-content-center ">
+          <img className="col-11 col-md-6 p-2" src={sliderImage6} alt="hatly store" />
+          <img className="col-11 d-none d-md-block col-md-6 p-2" src={sliderImage7} alt="hatly store" />
+        </div>
+        <div className="row d-none d-md-flex">
+          {categoryArray.map((category, i) => {
+            return <Category key={i} category={category}></Category>;
+          })}
+        </div>
+      </div>
+      <div className="" style={{ position: 'fixed', bottom: '0', zIndex: '999', width: '100vw' }}>
+        <div className="row justify-content-center d-md-none">
+          <div
+            className="col-12 ps-5 pe-5 pt-2 pb-2"
+            style={{
+              backgroundColor: "#3a4c8d",
+              boxShadow: "0 2px 5px 0 rgb(0 0 0 / 5%)",
+              borderRadius: "5px",
+              color: 'white'
+            }}
+          >
+            <div className="row justify-content-between">
+              <h4
+                className="col"
+                style={{ padding: "10px", display: "inline-block", color: 'white' }}
+              >
+                Brands
+              </h4>
+            </div>
+            <div className="row">
+              {brands.map((brand, i) => {
+                return (
+                  <div className="col-auto" key={i}>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        value={brand.brand}
+                        type="radio"
+                        name="brand"
+                        id={`brand${i}`}
+                        onChange={(e) => {
+                          scrollTop()
+                          setCurrentPage(1);
+                          setSelectedBradns(e.target.value);
+                        }}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={`brand${i}`}
+                      >
+                        {brand.brand}
+                      </label>
+                    </div>
+
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div className="container pt-3 pb-3" style={{ position: 'relative' }}>
         <div className="row">
           <div
             className="d-none d-md-block col-md-3 p-3"
@@ -107,6 +230,7 @@ const Shop = () => {
               borderRadius: "5px",
             }}
           >
+
             <div className="row justify-content-between">
               <h4
                 className="col"
@@ -154,8 +278,9 @@ const Shop = () => {
               );
             })}
           </div>
+
           <div
-            className="col ms-3 p-3"
+            className="col ms-md-3 p-3"
             style={{
               backgroundColor: "white",
               boxShadow: "0 2px 5px 0 rgb(0 0 0 / 5%)",
@@ -195,7 +320,7 @@ const Shop = () => {
                   <option defaultValue disabled hidden>
                     Sort by
                   </option>
-                  <option value="1">Popularity</option>
+                  <option value="1">Default</option>
                   <option value="2">Price: High to Low</option>
                   <option value="3">Price: Low to High</option>
                 </select>
@@ -251,7 +376,9 @@ const Shop = () => {
           </div>
         </div>
       </div>
-      <div className="container">
+
+      <div className="container p-0">
+        <PaymentSlider number={3}></PaymentSlider>
         <img src={sliderImage5} alt="" width="100%" />
       </div>
     </motion.div>

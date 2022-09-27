@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import card from "../../../img/card.png";
 import faild from "../../../img/faild.png";
+import loadingPic from "../../../img/loading.gif";
 import axios from "axios";
 import { fetchProduct } from "../../../API/product";
 import { useSelector } from "react-redux";
@@ -19,34 +20,37 @@ const PaymentResponse = () => {
     setTransctionId(searchParams.get("id"));
     if (transctionId == "") {
     } else {
-      setTimeout(() => {
-        axios
-          .get(
-            `https://accept.paymob.com/api/acceptance/transactions/${transctionId}`,
-            {
-              headers: {
-                authorization: token,
-              },
-            }
-          )
-          .then((res) => {
-            setOrderID(res.data.order.id);
-            fetchProduct
-              .put("/products/changeQuantity", {
-                items: cart.products,
-              })
-              .then(() => {
-                setLoading(false);
-                fetchProduct.post("/mail", {
-                  to: res.data.billing_data.email,
-                  name: `${res.data.billing_data.first_name} ${res.data.billing_data.last_name}`,
-                  items: res.data.order.items,
-                  orderID: res.data.order.id,
+      if (success) {
+        setTimeout(() => {
+          axios
+            .get(
+              `https://accept.paymob.com/api/acceptance/transactions/${transctionId}`,
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            )
+            .then((res) => {
+              setOrderID(res.data.order.id);
+              fetchProduct
+                .put("/products/changeQuantity", {
+                  items: cart.products,
+                })
+                .then(() => {
+                  setLoading(false);
+                  fetchProduct.post("/mail", {
+                    to: res.data.billing_data.email,
+                    name: `${res.data.billing_data.first_name} ${res.data.billing_data.last_name}`,
+                    items: res.data.order.items,
+                    orderID: res.data.order.id,
+                  });
                 });
-              });
-          })
-          .catch((err) => { });
-      }, 2000);
+            })
+            .catch((err) => { });
+        }, 2000);
+      }
+
     }
   };
   useEffect(() => {
@@ -56,7 +60,9 @@ const PaymentResponse = () => {
   return (
     <div className="container" style={{ paddingTop: "150px" }}>
       {loading ? (
-        ""
+        <div className="row justify-content-center">
+          <img className="col-auto" width="100%" src={loadingPic}></img>
+        </div>
       ) : (
         <div
           className="row align-items-center justify-content-center"

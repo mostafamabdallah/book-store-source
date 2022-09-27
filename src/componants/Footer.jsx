@@ -24,7 +24,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/"
+                  to="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -43,7 +43,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/"
+                  to="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -62,7 +62,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/"
+                  to="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -81,7 +81,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/"
+                  to="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -100,7 +100,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/"
+                  to="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -119,7 +119,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/"
+                  to="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -200,7 +200,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop"
+                  to="/shop/all"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -210,23 +210,61 @@ const Footer = () => {
                   Shop
                 </Link>
               </li>
+              <li className="pt-1 " style={{ listStyle: "none" }}>
+                <Link
+                  onClick={() => {
+                    window.scroll({
+                      top: 0,
+                      left: 0,
+                      behavior: "smooth",
+                    });
+                  }}
+                  to="/policy"
+                  style={{
+                    textDecoration: "none",
+                    color: "#fff",
+                    fontWeight: "500",
+                  }}
+                >
+                  Our Policy
+                </Link>
+              </li>
+              <li className="pt-1 " style={{ listStyle: "none" }}>
+                <Link
+                  onClick={() => {
+                    window.scroll({
+                      top: 0,
+                      left: 0,
+                      behavior: "smooth",
+                    });
+                  }}
+                  to="/our_store"
+                  style={{
+                    textDecoration: "none",
+                    color: "#fff",
+                    fontWeight: "500",
+                  }}
+                >
+                  Our Store
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="col-12 col-md-3">
             <h4>Hatly Mobile App</h4>
             <ul style={{ padding: "0" }}>
-              <li className="pt-1 " style={{ listStyle: "none" }}>
+              {/* <li className="pt-1 " style={{ listStyle: "none" }}>
                 <a
                   style={{
                     textDecoration: "none",
                     color: "#ebeef5",
                     fontWeight: "500",
                   }}
-                  href="#"
+                  href="https://play.google.com/store/apps/details?id=com.sanadstudios.hatly&hl=en&gl=US"
                 >
                   <img style={{ width: "50%" }} src={appStore}></img>
                 </a>
-              </li>
+              </li> */}
               <li className="pt-2 " style={{ listStyle: "none" }}>
                 <a
                   style={{
@@ -234,7 +272,8 @@ const Footer = () => {
                     color: "#ebeef5",
                     fontWeight: "500",
                   }}
-                  href="#"
+                  href="https://play.google.com/store/apps/details?id=com.sanadstudios.hatly&hl=en&gl=US"
+                  target="_blank"
                 >
                   <img style={{ width: "50%" }} src={playStore}></img>
                 </a>
@@ -256,34 +295,18 @@ const Footer = () => {
                 </a>
               </li>
               <li className="pt-1" style={{ listStyle: "none" }}>
-                <a
-                  style={{
-                    textDecoration: "none",
-                    color: "#ebeef5",
-                    fontWeight: "500",
-                  }}
-                  href="#"
-                >
-                  support@hatlystore.com
-                </a>
+                <a href="mailto:hatlystore@gmail.com" className="text-white">hatlystore@gmail.com</a>
               </li>
             </ul>
             <div style={{ display: "flex" }}>
-              <a href="">
+              <a href="https://www.facebook.com/hatly.store/" target="_blank">
                 <i
                   style={{ fontSize: "30px", color: "#ebeef5" }}
                   className="p-3 fa fa-facebook"
                   aria-hidden="true"
                 ></i>
               </a>
-              <a href="">
-                <i
-                  style={{ fontSize: "30px", color: "#ebeef5" }}
-                  className="p-3 fa fa-twitter"
-                  aria-hidden="true"
-                ></i>
-              </a>
-              <a href="">
+              <a href="https://www.instagram.com/hatlystores/" target="_blank">
                 <i
                   style={{ fontSize: "30px", color: "#ebeef5" }}
                   className="p-3 fa fa-instagram"

@@ -9,11 +9,15 @@ import "../style.css";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import Animation from "./Animation";
+import Alert from "./Alert";
 
 const App = () => {
+
+
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <Alert></Alert>
         <NavBar />
         <Animation></Animation>
         <Footer />

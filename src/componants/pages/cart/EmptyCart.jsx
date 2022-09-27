@@ -24,8 +24,9 @@ const EmptyCart = () => {
             fontSize: "80px",
             borderRadius: "50%",
             backgroundColor: "#0d6efd17",
+            color:'#3a4c8d'
           }}
-          className="fa p-3 fa-cart-plus text-primary"
+          className="fa p-3 fa-cart-plus "
         ></i>
         <h6 className="p-3">Your cart is empty!</h6>
         <p>Browse our categories and discover our best deals!</p>

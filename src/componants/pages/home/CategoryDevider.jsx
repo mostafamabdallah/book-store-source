@@ -11,7 +11,7 @@ const CategoryDevider = (props) => {
       });
     }} to={`/shop/${props.url}`}>
       <section className="container">
-        <img src={props.img} alt="" srcset="" width="100%" />
+        <img src={props.img} alt="" width="100%" />
         {/* <h1 className="text-center" style={{ color: "white" }}>
             {props.name}
           </h1> */}

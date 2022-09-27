@@ -7,6 +7,7 @@ import chargerImage from "../../../img/image2-1536x1152.png";
 import headphonesImage from "../../../img/image3-1536x1152.png";
 import caseImage from "../../../img/image4-1536x1152.png";
 import powerBanksImage from "../../../img/image5-1536x1152.png";
+import gaming from '../../../img/gaming.png'
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import ImageSlider from "../../ImageSlider";
@@ -20,17 +21,20 @@ import sliderImage5 from "../../../img/slider4.png";
 import sliderImage6 from "../../../img/slider5.png";
 import sliderImage7 from "../../../img/slider6.png";
 import sliderImage8 from "../../../img/slider7.png";
-import sliderImage9 from "../../../img/slider8.png";
 import mobileBanner from '../../../img/PHONES BANNER.png'
 import watchBanner from '../../../img/SMART WATCHES BANNER.png'
 import chargerBanner from '../../../img/chargers banner.png'
 import headphoneBanner from '../../../img/HEADPHONES BANNERS.png'
 import powerbankBanner from '../../../img/power banks banner.png'
 import casesBanner from '../../../img/CASES BANNER.png'
+import Whatsapp from "../../Whatsapp";
+
 
 import { useInView } from "react-intersection-observer";
 import CategoryDevider from "./CategoryDevider";
 import Category from "./Category";
+import PaymentSlider from "../../PaymentSlider";
+
 
 const categoryArray = [
   {
@@ -62,6 +66,11 @@ const categoryArray = [
   {
     name: "Cases",
     img: caseImage,
+    url: 'Mobiles'
+  },
+  {
+    name: "Accessories ",
+    img: gaming,
     url: 'Mobiles'
   },
 ];
@@ -259,6 +268,7 @@ const Home = () => {
         </div>
       </MainSection>
       <section ref={ref}>
+
         <div className="container mb-3">
           <motion.div
             animate={animation}
@@ -271,6 +281,9 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
+      <div className="container">
+        <PaymentSlider number={3}></PaymentSlider>
+      </div>
       <CategoryDevider img={mobileBanner} name="Mobiles" url="Mobiles"></CategoryDevider>
       <section ref={ref}>
         <div className="container">
@@ -290,16 +303,18 @@ const Home = () => {
           >
             {!loading ? (
               productsMobiles.map((product, i) => {
-                return (
-                  <Product
-                    grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3 p-3 productImage"
-                    key={i}
-                    data={product}
-                  ></Product>
-                );
+                if (i < 5) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-3 col-lg-2 mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
               })
             ) : (
-              <Loading grid="col-5 col-sm-5 col-md-5 col-lg-3 mb-5 bg-white p-3 productImage" />
+              <Loading grid="col-6 col-sm-6 col-md-6 col-lg mb-5 p-3 productImage" />
             )}
           </div>
         </div>
@@ -326,16 +341,18 @@ const Home = () => {
           >
             {!loading ? (
               productsWatches.map((product, i) => {
-                return (
-                  <Product
-                    grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3  p-3 productImage"
-                    key={i}
-                    data={product}
-                  ></Product>
-                );
+                if (i < 5) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
               })
             ) : (
-              <Loading grid="col-5 col-sm-5 col-md-5 col-lg-3 mb-3  p-3 productImage" />
+              <Loading grid="col-5 col-sm-5 col-md-5 col-lg mb-5 p-3 productImage" />
             )}
           </div>
         </div>
@@ -359,16 +376,18 @@ const Home = () => {
           >
             {!loading ? (
               productsWatches.map((product, i) => {
-                return (
-                  <Product
-                    grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3  p-3 productImage"
-                    key={i}
-                    data={product}
-                  ></Product>
-                );
+                if (i < 5) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
               })
             ) : (
-              <Loading grid="col-5 col-sm-5 col-md-5 col-lg-3 mb-3  p-3 productImage" />
+              <Loading grid="col-5 col-sm-5 col-md-5 col-lg mb-5 p-3 productImage" />
             )}
           </div>
         </div>
@@ -396,16 +415,18 @@ const Home = () => {
           >
             {!loading ? (
               productsWatches.map((product, i) => {
-                return (
-                  <Product
-                    grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3  p-3 productImage "
-                    key={i}
-                    data={product}
-                  ></Product>
-                );
+                if (i < 5) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
               })
             ) : (
-              <Loading grid="col-5 col-sm-5 col-md-5 col-lg-3 mb-3  p-3 productImage " />
+              <Loading grid="col-5 col-sm-5 col-md-5 col-lg mb-5 p-3 productImage" />
             )}
           </div>
         </div>
@@ -433,16 +454,18 @@ const Home = () => {
           >
             {!loading ? (
               productsWatches.map((product, i) => {
-                return (
-                  <Product
-                    grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3  p-3 productImage "
-                    key={i}
-                    data={product}
-                  ></Product>
-                );
+                if (i < 5) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
               })
             ) : (
-              <Loading grid="col-5 col-sm-5 col-md-5 col-lg-3 mb-3  p-3 productImage " />
+              <Loading grid="col-5 col-sm-5 col-md-5 col-lg mb-5 p-3 productImage" />
             )}
           </div>
         </div>
@@ -470,16 +493,18 @@ const Home = () => {
           >
             {!loading ? (
               productsWatches.map((product, i) => {
-                return (
-                  <Product
-                    grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3  p-3 productImage "
-                    key={i}
-                    data={product}
-                  ></Product>
-                );
+                if (i < 5) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-5 col-lg-2 mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
               })
             ) : (
-              <Loading grid="col-5 col-sm-5 col-md-5 col-lg-3 mb-3  p-3 productImage " />
+              <Loading grid="col-5 col-sm-5 col-md-5 col-lg mb-5 p-3 productImage" />
             )}
           </div>
         </div>
@@ -488,7 +513,10 @@ const Home = () => {
         url="all"
         img={sliderImage2}
       ></CategoryDevider>
+      <Whatsapp></Whatsapp>
+
     </motion.div>
+
   );
 };
 
